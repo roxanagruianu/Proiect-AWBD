@@ -20,7 +20,7 @@ public class Rol {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String nume;  // ex: "ROLE_ADMIN", "ROLE_USER"
+    private String nume;
 
     //Un rol poate apartine mai multor utilizatori
     @ManyToMany(mappedBy = "roluri")

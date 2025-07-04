@@ -40,4 +40,10 @@ public class Programare {
 
     @Size(max = 500)
     private String observatii;
+
+    @OneToOne(mappedBy = "programare", cascade = CascadeType.ALL)
+    private Diagnostic diagnostic;
+
+    @OneToOne(mappedBy = "programare", cascade = CascadeType.ALL)
+    private Reteta reteta;
 }
