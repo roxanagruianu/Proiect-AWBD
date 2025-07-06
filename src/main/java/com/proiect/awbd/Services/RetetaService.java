@@ -11,4 +11,7 @@ public interface RetetaService {
     Optional<RetetaDTO> findByProgramareId(Long programareId);
     List<RetetaDTO> findAll();
     void deleteById(Long id);
+    List<RetetaDTO> findByDoctorUsername(String username);
+
+    List<RetetaDTO> findByPacientUsername(String username);
 }

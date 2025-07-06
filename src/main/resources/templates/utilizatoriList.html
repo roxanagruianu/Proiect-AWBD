@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Utilizatori</title>
+</head>
+<body>
+<h2>Lista Utilizatori</h2>
+
+<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Roluri</th>
+            <th>Acțiuni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="utilizator : ${utilizatori}">
+            <td th:text="${utilizator.id}">1</td>
+            <td th:text="${utilizator.username}">username</td>
+            <td th:text="${utilizator.roluri}">[ROLE_USER]</td>
+            <td>
+                <a th:href="@{'/utilizatori/' + ${utilizator.id}}">Profil</a> |
+                <a th:href="@{'/utilizatori/form/' + ${utilizator.id}}">Editează</a> |
+                <a th:href="@{'/utilizatori/delete/' + ${utilizator.id}}"
+                   onclick="return confirm('Ești sigur că vrei să ștergi acest utilizator?')">Șterge</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/utilizatori/form">Adaugă Utilizator</a>
+</div>
+
+<div th:if="${!#authorization.expression('hasRole(''ADMIN'')')}">
+    <p>Nu ai permisiunea de a vizualiza această pagină.</p>
+</div>
+
+</body>
+</html>

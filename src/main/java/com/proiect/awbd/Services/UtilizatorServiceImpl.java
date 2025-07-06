@@ -78,4 +78,30 @@ public class UtilizatorServiceImpl implements UtilizatorService {
                 .map(utilizator -> modelMapper.map(utilizator, UtilizatorDTO.class));
     }
 
+    @Override
+    public void deleteById(Long id) {
+        utilizatorRepository.deleteById(id);
+    }
+
+    @Override
+    public UtilizatorDTO update(UtilizatorDTO dto) {
+        Utilizator utilizator = utilizatorRepository.findById(dto.getId())
+                .orElseThrow(() -> new RuntimeException("Utilizatorul nu a fost găsit"));
+
+        utilizator.setUsername(dto.getUsername());
+
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            utilizator.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
+        Set<Rol> roluri = dto.getRoluri().stream()
+                .map(rol -> rolRepository.findByNume(rol).orElseThrow(() ->
+                        new RuntimeException("Rolul nu a fost găsit: " + rol)))
+                .collect(Collectors.toSet());
+        utilizator.setRoluri(roluri);
+
+        return modelMapper.map(utilizatorRepository.save(utilizator), UtilizatorDTO.class);
+    }
+
+
 }

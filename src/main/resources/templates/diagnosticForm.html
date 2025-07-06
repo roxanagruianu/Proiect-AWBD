@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Formular diagnostice</title>
+    <title>Formular Diagnostic</title>
 </head>
 <body>
+
+<h1>Diagnostic</h1>
+
+<form th:action="@{/diagnostice/save}" th:object="${diagnostic}" method="post">
+
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Detalii:</label>
+    <textarea th:field="*{detalii}"></textarea><br/>
+
+    <label>Cod Diagnostic:</label>
+    <input type="text" th:field="*{codDiagnostic}"/><br/>
+
+    <label>Data:</label>
+    <input type="date" th:field="*{data}"/><br/>
+
+    <label>Programare ID:</label>
+    <input type="number" th:field="*{programareId}"/><br/>
+
+    <button type="submit">Salvează</button>
+
+</form>
 
 </body>
 </html>

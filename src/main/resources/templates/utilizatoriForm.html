@@ -1,0 +1,15 @@
+<form th:action="@{/utilizatori/save}" th:object="${utilizator}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Username:</label>
+    <input type="text" th:field="*{username}" required /><br/>
+
+    <label>Parolă:</label>
+    <input type="password" th:field="*{password}" required /><br/>
+
+    <label>Roluri:</label>
+    <div th:each="rol : ${roluriDisponibile}">
+        <input type="checkbox" th:value="${rol}" th:field="*{roluri}" /> <span th:text="${rol}"></span><br/>
+    </div>
+
+    <button type="submit">Salvează</button>
+</form>

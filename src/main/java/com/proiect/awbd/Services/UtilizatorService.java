@@ -10,4 +10,6 @@ public interface UtilizatorService {
     Optional<UtilizatorDTO> findByUsername(String username);
     List<UtilizatorDTO> findAll();
     Optional<UtilizatorDTO> findById(Long id);
+    void deleteById(Long id);
+    UtilizatorDTO update(UtilizatorDTO dto);
 }

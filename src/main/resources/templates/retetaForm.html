@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Formular Retete</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Formular Rețetă</title></head>
 <body>
+<h1 th:text="${reteta.id} != null ? 'Editează Rețetă' : 'Adaugă Rețetă'">Formular Rețetă</h1>
 
+<form th:action="@{/retete/save}" th:object="${reteta}" method="post">
+
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Medicamente:</label><br/>
+    <textarea th:field="*{medicamente}" rows="3" cols="50"></textarea><br/><br/>
+
+    <label>Instrucțiuni:</label><br/>
+    <textarea th:field="*{instructiuni}" rows="3" cols="50"></textarea><br/><br/>
+
+    <label>Data Emitere:</label><br/>
+    <input type="date" th:field="*{dataEmitere}"/><br/><br/>
+
+    <label>Programare ID:</label><br/>
+    <input type="number" th:field="*{programareId}"/><br/><br/>
+
+    <button type="submit">Salvează</button>
+</form>
+
+<a href="/retete">Înapoi la listă</a>
 </body>
 </html>

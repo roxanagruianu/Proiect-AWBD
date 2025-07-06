@@ -1,6 +1,8 @@
 package com.proiect.awbd.Services;
 
 
+import com.proiect.awbd.Repositories.DoctorRepository;
+import com.proiect.awbd.Repositories.PacientRepository;
 import com.proiect.awbd.Repositories.ProgramareRepository;
 import com.proiect.awbd.Repositories.RetetaRepository;
 import com.proiect.awbd.data_model.Programare;
@@ -21,6 +23,8 @@ public class RetetaServiceImpl implements RetetaService {
     private final RetetaRepository repository;
     private final RetetaMapper mapper;
     private final ProgramareRepository programareRepository;
+    private final DoctorRepository doctorRepository;
+    private final PacientRepository pacientRepository;
 
     @Override
     public RetetaDTO save(RetetaDTO dto) {
@@ -49,4 +53,15 @@ public class RetetaServiceImpl implements RetetaService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    public List<RetetaDTO> findByDoctorUsername(String username) {
+        List<Reteta> retete = repository.findByDoctorUsername(username);
+        return retete.stream().map(mapper::toDTO).toList();
+    }
+
+    public List<RetetaDTO> findByPacientUsername(String username) {
+        return repository.findByPacientUsername(username)
+                .stream().map(mapper::toDTO).toList();
+    }
+
 }

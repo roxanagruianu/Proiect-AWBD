@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista Retete</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Lista Rețete</title></head>
 <body>
+<h1>Rețete</h1>
 
-<h2>Lista retete</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+    <tr>
+        <th>Medicamente</th>
+        <th>Instrucțiuni</th>
+        <th>Data Emitere</th>
+        <th th:if="${#authorization.expression('hasRole(''DOCTOR'')')}">Acțiuni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reteta : ${retete}">
+        <td th:text="${reteta.medicamente}">Medicamente</td>
+        <td th:text="${reteta.instructiuni}">Instrucțiuni</td>
+        <td th:text="${reteta.dataEmitere}">Data Emitere</td>
+        <td th:if="${#authorization.expression('hasRole(''DOCTOR'')')}">
+            <a th:href="@{'/retete/form?id=' + ${reteta.id}}">Editează</a> |
+            <a th:href="@{'/retete/delete/' + ${reteta.id}}"
+               onclick="return confirm('Sigur vrei să ștergi această rețetă?')">Șterge</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${#authorization.expression('hasRole(''DOCTOR'')')}">
+    <a href="/retete/form">Adaugă Rețetă</a>
+</div>
+
 </body>
 </html>

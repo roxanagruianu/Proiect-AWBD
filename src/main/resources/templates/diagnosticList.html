@@ -1,11 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Lista Diagnostice</title>
 </head>
 <body>
+<h1>Diagnostice</h1>
 
-<h2>Lista diagnostice</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Detalii</th>
+        <th>Cod Diagnostic</th>
+        <th>Data</th>
+        <th>Programare ID</th>
+        <th th:if="${#authorization.expression('hasRole(''DOCTOR'')')}">Acțiuni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="diagnostic : ${diagnostice}">
+        <td th:text="${diagnostic.detalii}">Detalii</td>
+        <td th:text="${diagnostic.codDiagnostic}">Cod Diagnostic</td>
+        <td th:text="${diagnostic.data}">Data</td>
+        <td th:text="${diagnostic.programareId}">Programare ID</td>
+        <td th:if="${#authorization.expression('hasRole(''DOCTOR'')')}">
+            <a th:href="@{'/diagnostice/form?id=' + ${diagnostic.id}}">Editează</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${#authorization.expression('hasRole(''DOCTOR'')')}">
+    <a href="/diagnostice/form">Adaugă Diagnostic</a>
+</div>
+
 </body>
 </html>

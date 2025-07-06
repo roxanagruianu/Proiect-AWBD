@@ -11,4 +11,8 @@ public interface DiagnosticService {
     Optional<DiagnosticDTO> findByProgramareId(Long programareId);
     List<DiagnosticDTO> findAll();
     void deleteById(Long id);
+
+    List<DiagnosticDTO> findByDoctorUsername(String username);
+    List<DiagnosticDTO> findByPacientUsername(String username);
+
 }
