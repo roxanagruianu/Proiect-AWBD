@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+</head>
+<body>
+<h2>Register</h2>
+
+<form th:action="@{/register}" th:object="${utilizatorDTO}" method="post">
+    <div>
+        <label>Username:</label>
+        <input type="text" th:field="*{username}" required />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" th:field="*{password}" required />
+    </div>
+    <!-- Dacă vrei să lași user-ul să aleagă rolul, poți adăuga un input pentru roluri -->
+
+    <button type="submit">Register</button>
+</form>
+
+<div th:if="${error}">
+    <p th:text="${error}" style="color:red;"></p>
+</div>
+
+<p><a th:href="@{/login}">Login</a></p>
+</body>
+</html>
