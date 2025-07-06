@@ -54,4 +54,18 @@ public class ProgramareServiceImpl implements ProgramareService {
     public void delete(Long id) {
         programareRepository.deleteById(id);
     }
+
+    @Override
+    public List<ProgramareDTO> findByPacientId(Long pacientId) {
+        return programareRepository.findByPacientId(pacientId).stream()
+                .map(programareMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProgramareDTO> findByDoctorId(Long doctorId) {
+        return programareRepository.findByDoctorId(doctorId).stream()
+                .map(programareMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }

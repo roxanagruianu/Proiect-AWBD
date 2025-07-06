@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formular clinică</title>
+</head>
+<body>
+
+<h2 th:text="${clinica.id != null} ? 'Editează clinica' : 'Adaugă clinică'"></h2>
+
+<form th:action="@{/clinici/save}" th:object="${clinica}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="nume">Nume:</label>
+    <input type="text" id="nume" th:field="*{nume}" /><br/>
+
+    <label for="adresa">Adresă:</label>
+    <input type="text" id="adresa" th:field="*{adresa}" /><br/>
+
+    <label for="telefon">Telefon:</label>
+    <input type="text" id="telefon" th:field="*{telefon}" /><br/>
+
+    <button type="submit">Salvează</button>
+</form>
+
+<br>
+<a th:href="@{/clinici}">Înapoi</a>
+
+</body>
+</html>

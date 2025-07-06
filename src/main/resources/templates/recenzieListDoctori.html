@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Lista Recenzii - Pacient</title>
+</head>
+<body>
+<h2>Recenzii</h2>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Pacient ID</th>
+    <th>Doctor ID</th>
+    <th>Comentariu</th>
+    <th>Rating</th>
+    <th>Data</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="r : ${recenzii}">
+    <td th:text="${r.pacientId}"></td>
+    <td th:text="${r.doctorId}"></td>
+    <td th:text="${r.comentariu}"></td>
+    <td th:text="${r.rating}"></td>
+    <td th:text="${r.dataRecenzie}"></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<a th:href="@{/}">Înapoi la pagina principală</a>
+</body>
+</html>

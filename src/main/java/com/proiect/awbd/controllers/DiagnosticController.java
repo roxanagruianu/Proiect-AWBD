@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/diagnostice")
+@RequestMapping()
 public class DiagnosticController {
 
     private final DiagnosticService service;
@@ -19,19 +19,19 @@ public class DiagnosticController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/diagnostice")
     public String list(Model model) {
         model.addAttribute("diagnostice", service.findAll());
         return "diagnosticList";
     }
 
-    @GetMapping("/form")
+    @GetMapping("/diagnostice/form")
     public String form(Model model) {
         model.addAttribute("diagnostic", new DiagnosticDTO());
         return "diagnosticForm";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/diagnostice/save")
     public String save(@ModelAttribute DiagnosticDTO dto) {
         service.save(dto);
         return "redirect:/diagnostice";

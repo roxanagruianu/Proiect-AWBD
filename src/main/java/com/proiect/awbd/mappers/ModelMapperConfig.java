@@ -1,4 +1,4 @@
-package com.proiect.awbd;
+package com.proiect.awbd.mappers;
 
 import com.proiect.awbd.data_model.Rol;
 import com.proiect.awbd.data_model.Utilizator;

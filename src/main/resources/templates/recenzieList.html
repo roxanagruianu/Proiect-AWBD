@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Lista Recenzii</title>
+</head>
+<body>
+
+<h2>Recenzii</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Pacient ID</th>
+        <th>Doctor ID</th>
+        <th>Comentariu</th>
+        <th>Rating</th>
+        <th>Data</th>
+        <th th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PACIENT'')')}">Acțiuni</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${recenzii}">
+        <td th:text="${r.pacientId}">Pacient</td>
+        <td th:text="${r.doctorId}">Doctor</td>
+        <td th:text="${r.comentariu}">Comentariu</td>
+        <td th:text="${r.rating}">Rating</td>
+        <td th:text="${r.dataRecenzie}">Data</td>
+        <td th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''PACIENT'')')}">
+            <a th:href="@{'/recenzii/form?id=' + ${r.id}}">Editează</a> |
+            <a th:href="@{'/recenzii/delete/' + ${r.id}}"
+               onclick="return confirm('Ești sigur că vrei să ștergi recenzia?');">Șterge</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+
+<sec:authorize access="hasAnyRole('ADMIN', 'PACIENT')">
+    <a th:href="@{/recenzii/form}">+ Adaugă Recenzie</a>
+</sec:authorize>
+
+<br><br>
+<a th:href="@{/}">Înapoi la pagina principală</a>
+
+</body>
+</html>

@@ -9,4 +9,7 @@ public interface PacientService {
     PacientDTO findById(Long id);
     PacientDTO save(PacientDTO pacient);
     void deleteById(Long id);
+    List<PacientDTO> findPacientiByDoctorEmail(String doctorEmail);
+
+    List<PacientDTO> findPacientiByDoctorUsername(String username);
 }

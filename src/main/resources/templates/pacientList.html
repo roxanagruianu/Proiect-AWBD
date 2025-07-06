@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Lista Pacienti</title>
+  <title>Lista Pacienți</title>
 </head>
 <body>
-<h1>Pacienti</h1>
+
+<h1>Pacienți</h1>
+
 <table border="1">
   <thead>
   <tr>
     <th>Nume</th>
     <th>Prenume</th>
     <th>Email</th>
+    <th th:if="${isAdmin}">Acțiuni</th>
   </tr>
   </thead>
   <tbody>
@@ -18,9 +21,18 @@
     <td th:text="${pacient.nume}">Nume</td>
     <td th:text="${pacient.prenume}">Prenume</td>
     <td th:text="${pacient.email}">Email</td>
+    <td th:if="${isAdmin}">
+      <a th:href="@{'/pacienti/form?id=' + ${pacient.id}}">Editează</a> |
+      <a th:href="@{'/pacienti/delete/' + ${pacient.id}}"
+         onclick="return confirm('Sigur vrei să ștergi acest pacient?')">Șterge</a>
+    </td>
   </tr>
   </tbody>
 </table>
-<a href="/pacienti/form">Adauga Pacient</a>
+
+<div th:if="${isAdmin}">
+  <a href="/pacienti/form">Adaugă Pacient</a>
+</div>
+
 </body>
 </html>

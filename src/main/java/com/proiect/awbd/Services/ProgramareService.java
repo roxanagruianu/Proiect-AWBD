@@ -9,4 +9,6 @@ public interface ProgramareService {
     ProgramareDTO findById(Long id);
     void save(ProgramareDTO dto);
     void delete(Long id);
+    List<ProgramareDTO> findByPacientId(Long pacientId);
+    List<ProgramareDTO> findByDoctorId(Long doctorId);
 }

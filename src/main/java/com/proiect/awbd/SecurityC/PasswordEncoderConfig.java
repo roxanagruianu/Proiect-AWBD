@@ -1,4 +1,4 @@
-package com.proiect.awbd;
+package com.proiect.awbd.SecurityC;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

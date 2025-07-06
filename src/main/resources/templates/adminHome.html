@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Pagina Principală</title>
+</head>
+<body>
+<h2>Bine ai venit, Administrator!</h2>
+<ul>
+    <li><a th:href="@{/clinici}">Gestionare Clinici</a></li>
+    <li><a th:href="@{/programari}">Gestionare Programări</a></li>
+    <li><a th:href="@{/utilizatori}">Gestionare Utilizatori</a></li>
+    <li><a th:href="@{/roluri}">Gestionare Roluri</a></li>
+    <li><a th:href="@{/doctori}">Gestionare Doctori</a></li>
+    <li><a th:href="@{/pacienti}">Gestionare Pacienti</a></li>
+    <li><a th:href="@{/recenzii}">Gestionare Recenzii</a></li>
+</ul>
+
+<a th:href="@{/logout}">Logout</a>
+</body>
+</html>

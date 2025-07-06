@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Doctor - Pagina Principală</title>
+</head>
+<body>
+<h2>Bine ai venit, Doctor!</h2>
+<ul>
+    <li><a th:href="@{/pacienti}">Pacienții Mei</a></li>
+    <li><a th:href="@{/programari}">Programările Mele</a></li>
+    <li><a th:href="@{/retete}">Rețete</a></li>
+    <li><a th:href="@{/diagnostice}">Diagnostice</a></li>
+    <li><a th:href="@{/clinici}">Clinici</a></li>
+    <li><a th:href="@{/recenzii}">Recenzii</a></li>
+</ul>
+
+<a th:href="@{/logout}">Logout</a>
+</body>
+</html>

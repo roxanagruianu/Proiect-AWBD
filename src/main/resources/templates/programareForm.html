@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formular Programare</title>
+</head>
+<body>
+
+<h1>Formular Programare</h1>
+
+<form th:action="@{/programari/save}" th:object="${programare}" method="post">
+
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="pacientId">Pacient:</label>
+    <select th:field="*{pacientId}" id="pacientId" required>
+        <option value="" disabled selected>Selectează pacientul</option>
+        <option th:each="pacient : ${pacienti}"
+                th:value="${pacient.id}"
+                th:text="${pacient.nume} + ' ' + ${pacient.prenume}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <label for="doctorId">Doctor:</label>
+    <select th:field="*{doctorId}" id="doctorId" required>
+        <option value="" disabled selected>Selectează doctorul</option>
+        <option th:each="doctor : ${doctori}"
+                th:value="${doctor.id}"
+                th:text="${doctor.nume} + ' ' + ${doctor.prenume}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <label for="clinicaId">Clinica:</label>
+    <select th:field="*{clinicaId}" id="clinicaId">
+        <option value="" selected>Fără clinică</option>
+        <option th:each="clinica : ${clinici}"
+                th:value="${clinica.id}"
+                th:text="${clinica.nume}">
+        </option>
+    </select>
+    <br/><br/>
+
+    <label for="dataOra">Data și Ora:</label>
+    <input type="datetime-local" th:field="*{dataOra}" id="dataOra" required />
+    <br/><br/>
+
+    <button type="submit">Salvează</button>
+    <a th:href="@{/programari}">Anulează</a>
+
+</form>
+
+</body>
+</html>

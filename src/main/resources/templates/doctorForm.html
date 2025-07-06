@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Formular Doctor</title>
+</head>
+<body>
+
+<h2 th:text="${doctor.id} != null ? 'Editează Doctor' : 'Adaugă Doctor'">Formular Doctor</h2>
+
+<form th:action="@{/doctori/save}" th:object="${doctor}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="nume">Nume:</label>
+    <input type="text" id="nume" th:field="*{nume}" required />
+    <br/>
+
+    <label for="prenume">Prenume:</label>
+    <input type="text" id="prenume" th:field="*{prenume}" required />
+    <br/>
+
+    <label for="specializare">Specializare:</label>
+    <input type="text" id="specializare" th:field="*{specializare}" required />
+    <br/>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" th:field="*{email}" required />
+    <br/>
+
+    <label for="telefon">Telefon:</label>
+    <input type="text" id="telefon" th:field="*{telefon}" required />
+    <br/>
+
+    <button type="submit">Salvează</button>
+    <a th:href="@{/doctori}">Anulează</a>
+</form>
+
+</body>
+</html>

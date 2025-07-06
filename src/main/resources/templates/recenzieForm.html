@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adaugă Recenzie</title>
+</head>
+<body>
+
+<h2>Formular Recenzie</h2>
+
+<form th:action="@{/recenzii/save}" method="post" th:object="${recenzie}">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Pacient:</label>
+    <select th:field="*{pacientId}">
+        <option th:each="p : ${pacienti}" th:value="${p.id}" th:text="${p.nume + ' ' + p.prenume}"></option>
+    </select>
+    <br><br>
+
+    <label>Doctor:</label>
+    <select th:field="*{doctorId}">
+        <option th:each="d : ${doctori}" th:value="${d.id}" th:text="${d.nume + ' ' + d.prenume}"></option>
+    </select>
+    <br><br>
+
+    <label>Comentariu:</label>
+    <textarea th:field="*{comentariu}" rows="3" cols="40"></textarea>
+    <br><br>
+
+    <label>Rating (1-5):</label>
+    <input type="number" th:field="*{rating}" min="1" max="5"/>
+    <br><br>
+
+    <button type="submit">Salvează</button>
+</form>
+
+<br>
+<a th:href="@{/recenzii}">Înapoi la listă</a>
+
+</body>
+</html>

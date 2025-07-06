@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Lista Clinici</title>
+</head>
+<body>
+
+<h2>Lista clinicilor</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nume</th>
+        <th>Adresă</th>
+        <th>Telefon</th>
+        <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Acțiuni</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="clinica : ${clinici}">
+        <td th:text="${clinica.nume}">Nume</td>
+        <td th:text="${clinica.adresa}">Adresă</td>
+        <td th:text="${clinica.telefon}">Telefon</td>
+
+        <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a th:href="@{'/clinici/form?id=' + ${clinica.id}}">Editează</a> |
+            <a th:href="@{'/clinici/delete/' + ${clinica.id}}"
+               onclick="return confirm('Sigur vrei să ștergi această clinică?');">Șterge</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+    <br>
+    <a th:href="@{/clinici/form}">+ Adaugă clinică</a>
+</div>
+
+
+
+<br>
+<a th:href="@{/}">Înapoi la pagina principală</a>
+
+</body>
+</html>
