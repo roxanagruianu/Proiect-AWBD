@@ -5,6 +5,10 @@ import com.proiect.awbd.Services.UtilizatorService;
 import com.proiect.awbd.dtos.RolDTO;
 import com.proiect.awbd.dtos.UtilizatorDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +29,27 @@ public class UtilizatorController {
     private final RolService rolService;
 
     @GetMapping("/utilizatori")
-    public String listUtilizatori(Model model) {
-        log.info("Cerere listare utilizatori");
-        model.addAttribute("utilizatori", utilizatorService.findAll());
+    public String listUtilizatori(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "username") String sort,
+            @RequestParam(defaultValue = "asc") String dir,
+            Model model) {
+
+        Sort.Direction direction = dir.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort));
+
+        Page<UtilizatorDTO> utilizatoriPage = utilizatorService.findPaginated(pageable);
+
+        model.addAttribute("utilizatoriPage", utilizatoriPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", utilizatoriPage.getTotalPages());
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
+
         return "utilizatoriList";
     }
+
 
     @GetMapping("/utilizatori/form")
     public String createForm(Model model) {

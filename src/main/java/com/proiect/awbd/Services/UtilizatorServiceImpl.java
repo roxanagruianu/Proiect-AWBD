@@ -7,6 +7,8 @@ import com.proiect.awbd.data_model.Utilizator;
 import com.proiect.awbd.dtos.UtilizatorDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -103,5 +105,18 @@ public class UtilizatorServiceImpl implements UtilizatorService {
         return modelMapper.map(utilizatorRepository.save(utilizator), UtilizatorDTO.class);
     }
 
+    @Override
+    public Page<UtilizatorDTO> findPaginated(Pageable pageable) {
+        return utilizatorRepository.findAll(pageable)
+                .map(utilizator -> {
+                    UtilizatorDTO dto = modelMapper.map(utilizator, UtilizatorDTO.class);
+                    if (utilizator.getRoluri() != null) {
+                        dto.setRoluri(utilizator.getRoluri().stream()
+                                .map(Rol::getNume)
+                                .collect(Collectors.toSet()));
+                    }
+                    return dto;
+                });
+    }
 
 }

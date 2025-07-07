@@ -10,14 +10,22 @@
     <table border="1">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Username</th>
+            <th>
+                <a th:href="@{/utilizatori(page=${currentPage}, sort='id', dir=${sort == 'id' and dir == 'asc' ? 'desc' : 'asc'})}">
+                    ID <span th:text="${sort == 'id' ? (dir == 'asc' ? '↑' : '↓') : ''}"></span>
+                </a>
+            </th>
+            <th>
+                <a th:href="@{/utilizatori(page=${currentPage}, sort='username', dir=${sort == 'username' and dir == 'asc' ? 'desc' : 'asc'})}">
+                    Username <span th:text="${sort == 'username' ? (dir == 'asc' ? '↑' : '↓') : ''}"></span>
+                </a>
+            </th>
             <th>Roluri</th>
             <th>Acțiuni</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="utilizator : ${utilizatori}">
+        <tr th:each="utilizator : ${utilizatoriPage.content}">
             <td th:text="${utilizator.id}">1</td>
             <td th:text="${utilizator.username}">username</td>
             <td th:text="${utilizator.roluri}">[ROLE_USER]</td>
@@ -33,6 +41,23 @@
 
     <br>
     <a href="/utilizatori/form">Adaugă Utilizator</a>
+
+    <div>
+        <span th:if="${currentPage > 0}">
+            <a th:href="@{/utilizatori(page=${currentPage - 1}, sort=${sort}, dir=${dir})}">« Anterior</a>
+        </span>
+
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{/utilizatori(page=${i}, sort=${sort}, dir=${dir})}"
+               th:text="${i + 1}"
+               th:classappend="${i == currentPage} ? ' active' : ''">1</a>
+        </span>
+
+        <span th:if="${currentPage < totalPages - 1}">
+            <a th:href="@{/utilizatori(page=${currentPage + 1}, sort=${sort}, dir=${dir})}">Următor »</a>
+        </span>
+    </div>
+
 </div>
 
 <div th:if="${!#authorization.expression('hasRole(''ADMIN'')')}">
@@ -40,6 +65,5 @@
 </div>
 
 <a th:href="@{/}">Înapoi la pagina principală</a>
-
 </body>
 </html>
